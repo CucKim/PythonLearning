@@ -14,7 +14,7 @@ def mean():
 def median():
     c = n//2
     if n%2 == 0:
-        d = ((my_list[c-1])+ (my_list[c+1]))/2
+        d = ((my_list[c-1])+ (my_list[c]))/2
     else:
         d = my_list[c]
     return d
