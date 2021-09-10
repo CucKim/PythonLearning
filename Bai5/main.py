@@ -31,3 +31,41 @@ def mode():
     return (my_lst3,e)
 print ("List được nhập vào là: ", my_list)
 print (" Các giá trị mean, mdeian, mode của list lần lượt là: ", mean(),', ', median(),', ', mode())
+
+#Bài đếm số
+## Ví dụ 1
+s = str(input("Nhập chuỗi muốn đếm: "))
+def dem_so():
+  numbers = sum(c.isdigit() for c in s)
+  words   = sum(c.isalpha() for c in s)
+  uppers  = sum(c.isupper() for c in s)
+  lowers   = sum(c.islower() for c in s)
+  result_dict={
+        "LETTERS":words,
+        "CASE":{"UPPER CASE":uppers, "LOWER CASE":lowers},
+        "DIGITS":numbers}
+  print("Kết quả là: ",result_dict)  
+dem_so()
+## Ví dụ 2
+s= str(input("Nhập chuỗi muốn đếm: "))
+def dem_chuoi():
+  number=0
+  upcase =0
+  lower =0
+  for c in s:
+    a = ord(c)
+    if 48 <= a <= 57:
+      number +=1
+    elif 65<=a <= 90:
+      upcase +=1
+    elif 97 <=a <=122:
+      lower +=1
+  letter = upcase + lower
+  result_dict={
+        "LETTERS":letter,
+        "CASE":{"UPPER CASE":upcase, "LOWER CASE":lower},
+        "DIGITS":number
+ }   
+  print(result_dict)
+
+dem_chuoi()
