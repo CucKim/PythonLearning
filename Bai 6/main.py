@@ -3,7 +3,8 @@ s = str(input("Nhập chuỗi muốn quy đổi:"))
 s1 = s.swapcase()
 s2= list (reversed(s1))
 s2 = ''.join(s2)
-print(s2)
+print ("Chuỗi nhập vào ban đầu: " ,s)
+print("Chuỗi sau khi quy đổi: ",s2)
 
 #Sắp xếp điểm thi
 n = int(input("Khai báo số học sinh trong lớp: "))
