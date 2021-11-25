@@ -22,14 +22,47 @@ get_words() và get_top_words().
 
 """
 
-import sys
+"""import sys
 
 # +++your code here+++
-def get_words(filename):
-  pass
+def helper(filename):
+  contents = ""
+  with open(filename, 'r') as file_again:
+      for i in file_again:
+          contents+= i.replace(".","").replace(",","").replace("?","").replace("!","").replace("-","").replace(":","").replace('"','')
+      content = contents.split()
+      for i in range(len(content)) :
+        content[i]= content[i].lower()
+  return(content)
+def print_words(filename):
+  content = helper(filename)
+  result = []
+  for i in content:
+    result.append(i+" "+str(content.count(i)))
+  result1= set(result)
+  result= list(result1)
+  result.sort()
+  for i in result:
+    print(i)
 
-def get_top_words(filename):
-  pass
+def print_top(filename):
+  content = helper(filename)
+  result ={}
+  for i in content:
+    result[i]=str(content.count(i))
+  list1=list(result.values())
+  for i in range(len(list1)):
+    list1[i]=int(list1[i])
+  list1= sorted(list1)[-20:-1]
+  list2=[]
+  for j in list1:
+    for i in list(result.keys()):
+      if  int(result[i]) == j:
+        if(i not in list2):
+          list2.append(i)
+          break;
+  for i in range(len(list2)):
+    print(list2[i]+ " " +str(list1[i]))
 
 ###
 
@@ -42,18 +75,81 @@ def main():
 
   option = sys.argv[1]
   filename = sys.argv[2]
-  ans = []
+  # ans = []
   if option == '--count':
-    ans = get_words(filename)
+    # ans = get_words(filename)
+    print_words(filename)
   elif option == '--topcount':
-    ans = get_top_words(filename)
+    # ans = get_top_words(filename)
+    print_top(filename)
   else:
     print('unknown option: ' + option)
     sys.exit(1)
 
   # print out the answer
-  for item in ans:
-    print(item[0], item[1])
+  # for item in ans:
+  #   print(item[0], item[1])
+
+if __name__ == '__main__':
+  main()
+"""
+import sys
+
+# +++your code here+++
+def helper(filename):
+  contents = ""
+  with open(filename, 'r') as file_again:
+      for i in file_again:
+          contents+= i.replace(".","").replace(",","").replace("?","").replace("!","").replace("-","").replace(":","").replace('"','')
+      content = contents.split()
+      for i in range(len(content)) :
+        content[i]= content[i].lower()
+  return(content)
+def print_words(filename):
+  content = helper(filename)
+  result = []
+  for i in content:
+    result.append(i+" "+str(content.count(i)))
+  result1= set(result)
+  result= list(result1)
+  result.sort()
+  for i in result:
+    print(i)
+
+def print_top(filename):
+  content = helper(filename)
+  result ={}
+  for i in content:
+    result[i]=str(content.count(i))
+  list1=list(result.values())
+  for i in range(len(list1)):
+    list1[i]=int(list1[i])
+  list1= sorted(list1)[-20:-1]
+  list2=[]
+  for j in list1:
+    for i in list(result.keys()):
+      if  int(result[i]) == j:
+        if(i not in list2):
+          list2.append(i)
+          break;
+  for i in range(len(list2)):
+    print(list2[i]+ " " +str(list1[i]))
+###
+# This basic command line argument parsing code is provided and
+# calls the print_words() and print_top() functions which you must define.
+def main():
+  if len(sys.argv) != 3:
+    print('usage: ./wordcount.py {--count | --topcount} file')
+    sys.exit(1)
+  option = sys.argv[1]
+  filename = sys.argv[2]
+  if option == '--count':
+    print_words(filename)
+  elif option == '--topcount':
+    print_top(filename)
+  else:
+    print('unknown option: ' + option)
+    sys.exit(1)
 
 if __name__ == '__main__':
   main()
