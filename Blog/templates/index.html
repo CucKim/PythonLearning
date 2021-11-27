@@ -43,6 +43,14 @@
             <div>
                 <button type ="submit"> Add new post</button>
             </div>
+        <!--
+            {% with messages = get_flashed_messages() %} {% if messages %}
+        <div>
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %} {% endwith %}-->
         </form>
         <h2>All post</h2>
         {% for i in cur %}

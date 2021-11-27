@@ -15,7 +15,11 @@ class Player:
         total = 0
         for i in self.card:
             total += i.v
-        return (total%10)
+        if total%10 == 0:
+            total =10
+        else:
+            total= total%10
+        return total
 
     @property
     def biggest_card(self):
@@ -30,14 +34,16 @@ class Player:
         return max
     def add_card(self,card):
         '''Thêm một lá bài vào bộ (rút từ bộ bài)'''
-        self.card.append(card)s
+        self.card.append(card)
 
        
     def remove_card(self):
         '''Reset bộ bài khi chơi game mới'''
         self.card=[]
+        
     def flip_card(self):
-        '''Lật bài, hiển thị các lá bài'''
-            
+        '''Lật bài, hiển thị các lá bài'''   
+        str1=''
         for i in self.card:
-            print(i)
+           str1=str(i)+str1
+        return str1

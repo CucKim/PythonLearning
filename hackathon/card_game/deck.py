@@ -13,17 +13,14 @@ class Deck:
         for i in Deck.v:
             for j in Deck.s:
                 self.deck.append(Card(i,j))
-        for i in self.deck:
-            print(i)
+    
         
 
     def shuffle_card(self):
         '''Trộn bộ bài'''
         random.shuffle(self.deck)
-        for i in self.deck:
-            print(i)
-
+       
     def deal_card(self,index_card):
         '''Rút một lá bài từ bộ bài'''
-        return self.deck[index_card]
+        return self.deck.pop()
         

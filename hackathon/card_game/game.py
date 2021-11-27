@@ -11,10 +11,21 @@ class Game:
         self.number = []
         self.deck = Deck()
         self.deck.build()
+        self.flag=False
     def setup(self):
         '''Khởi tạo trò chơi, nhập số lượng và lưu thông tin người chơi'''
-        print("Well come........., nhập số người chơi")
-        number_player = int(input())
+        print("Well come........., nhập số người chơi:")
+        while True:
+            try:
+                number_player = int(input())
+                if number_player>=2 and number_player<=10:
+                    break
+                else:
+                    print("Số lượng người chơi trong khoảng 2-10")
+            except:
+                print("Dữ liệu nhập chưa thỏa mãn. Nhập lại nào:")
+                
+            
         name=[]
         for i in range(number_player):
             name_player = input("Nhập tên người chơi thứ " +str(i+1))
@@ -35,30 +46,53 @@ class Game:
         '''Hiển thị danh sách người chơi'''
         print("Danh sách người chơi là: ")
         for i in self.number:
-            print(i)
+            print(i.name)
 
     def add_player(self):
         '''Thêm một người chơi mới'''
-        name = input("Nhập tên người chơi muốn thêm: ")
-        self.number.append(Player(name))
+        if len(self.number) > 11:
+            print("Đã đủ người chơi")
+        else:
+            name = input("Nhập tên người chơi muốn thêm: ")
+            self.number.append(Player(name))
 
     def remove_player(self):
         '''
         Loại một người chơi
         Mỗi người chơi có một ID (có thể lấy theo index trong list)
         '''
-        number_player = int(input("Bạn muốn xóa người chơi thứ mấy? "))
-        self.number.pop(number_player)
+        if len(self.number)<3:
+            print("Không được xóa")
+        else:
+            number_player = int(input("Bạn muốn xóa người chơi thứ mấy? "))
+            self.number.pop(number_player)
 
     def deal_card(self):
         '''Chia bài cho người chơi'''
+        self.deck.shuffle_card()
         n = len(self.number)
-        for player in self.number:
-            player.add_card(self.deck.deal_card(self.number.index(player)))
-            player.add_card(self.deck.deal_card(self.number.index(player + n)))
-            player.add_card(self.deck.deal_card(self.number.index(player + 2*n)))
+        for i in range (0,3):
+            for player in self.number:
+                player.add_card(self.deck.deal_card(self.number.index(player)))
+        self.flag=True
+        
     def flip_card(self):
         '''Lật bài tất cả người chơi, thông báo người chiến thắng'''
+       
+        max_player=""
+        max_point = 0
+        max_biggis = "" 
         for player in self.number:
-            player.point()
-    
+            if player.point > max_point: 
+               max_player = player.name
+               max_point = player.point
+               max_biggis = player.biggest_card
+            
+            elif player.point == max_point:
+                if player.biggest_card > max_biggis :
+                    max_player = player.name
+                    max_point = player.point
+                    max_biggis = player.biggest_card
+        self.flag=False
+        return max_player
+

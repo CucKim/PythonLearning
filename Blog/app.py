@@ -1,8 +1,10 @@
-from flask import Flask, render_template, Response, request, redirect
+from flask import Flask, render_template, Response, request, redirect,flash
 from pymysql import connect, cursors, Error
 from datetime import datetime  
 from docx import Document
 from docx.shared import Inches
+#app = Flask(__name__)
+#app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 config = {
     'host': 'localhost',
@@ -23,13 +25,13 @@ def postpage():
     title = request.form["title"]
     content = request.form["content"]
     cur = cnx.cursor()
+    #if title and content:
     sql="INSERT INTO list_blog (title, content, create_date) VALUES (%s, %s,%s)"
     value=(title,content,datetime.now())
-    try:
-        cur.execute(sql,value)
-        cnx.commit()
-    except:
-        cnx.rollback()
+    cur.execute(sql,value)
+    cnx.commit()
+    #else:
+        #flash("Title and content cannot be empty")    
     #cnx.close()
     return redirect("/index", code=302)
 
