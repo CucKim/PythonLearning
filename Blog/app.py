@@ -3,48 +3,38 @@ from pymysql import connect, cursors, Error
 from datetime import datetime  
 from docx import Document
 from docx.shared import Inches
-#app = Flask(__name__)
-#app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 config = {
     'host': 'localhost',
     'user': 'root',
     'password': '',
-    'database': 'blogs',
+    'database': 'blog1',
     }
 cnx = connect(**config)
-
-#from app import app
-
-app = Flask(__name__)
-
-
 # Chỉ định URL kích hoạt hàm homepage
-@app.route('/index', methods = ["POST"])
+@app.route('/', methods =["POST"])
 def postpage():
     title = request.form["title"]
     content = request.form["content"]
     cur = cnx.cursor()
-    #if title and content:
-    sql="INSERT INTO list_blog (title, content, create_date) VALUES (%s, %s,%s)"
+    sql="INSERT INTO blog_user (title, content, create_date) VALUES (%s, %s,%s)"
     value=(title,content,datetime.now())
     cur.execute(sql,value)
     cnx.commit()
-    #else:
-        #flash("Title and content cannot be empty")    
-    #cnx.close()
-    return redirect("/index", code=302)
+    return redirect("/", code=302)
 
-@app.route('/index', methods = ["GET"])
+@app.route('/', methods = ["GET"])
 def getpage():
     cur = cnx.cursor()
-    sql="SELECT * FROM list_blog"
+    sql="SELECT * FROM blog_user"
     cur.execute(sql)
     return render_template("index.html",cur=cur)
 @app.route('/editpost/<id>', methods = ["GET"])
 def detailpost(id):
     cur = cnx.cursor()
-    sql="SELECT * FROM list_blog WHERE id=" +str(id)
+    sql="SELECT * FROM blog_user WHERE id=" +str(id)
     cur.execute(sql)
     for i in cur:
         r1 = i[1] # r1 là title của bài viết
@@ -56,10 +46,10 @@ def editpost(id):
     cur = cnx.cursor()
     title = request.form["title"]
     content = request.form["content"]
-    sql=f"UPDATE list_blog SET title = '{title}', content ='{content}' WHERE id="+str(id)
+    sql=f"UPDATE blog_user SET title = '{title}', content ='{content}' WHERE id="+str(id)
     cur.execute(sql)
     cnx.commit()
-    return redirect("/index", code=302)
+    return redirect("/", code=302)
     
 @app.route('/resignationletter', methods = ["GET"])
 def resignation():
